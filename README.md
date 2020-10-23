@@ -37,3 +37,21 @@
 #### 1.4 개발환경
 Language: java <br>
 IDE: Android Studio <br>
+
+### 2. 소스 파일
+#### 2.1 소스 파일 구성
+|파일명|기능|
+|:---:|:---:|
+|MainActivity.java|기본 액티비티로서, 상품 페이지를 구성하는 액티비티|
+|ShoppingCart.java|장바구니 페이지를 구성하는 액티비티 |
+|Purchase.java|구매 페이지를 구성하는 액티비티|
+|Product.java|상품 클래스. 상품 정보를 관리|
+|CheckableLinearLayout.java|Checkable 인터페이스를 상속하여 새로 구성한 LinearLayout 클래스|
+|ProductList.java|상품 페이지와 구매 페이지에서 상품 나열을 위한, adapter역할의 클래스|
+|CheckProductList.java|장바구니 페이지에서 상품 나열을 위한, adapter역할의 클래스|
+
+#### 2.2 소스 파일 설명
+
+### 3. UI 및 스크린샷
+#### 3.1 UI 설계
+#### 3.2 스크린샷
