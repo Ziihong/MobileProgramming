@@ -33,7 +33,7 @@
 ### 1.2 프로젝트 대상
 이 프로젝트의 대상은 가방을 구매하려는 소비자이다. 원하는 제품을 선택하여 구매할 수 있다.
 ### 1.3 프로젝트 기능
-구매하려는 제품이 하나일 때는 상품 페이지에서 원하는 제품 선택 후 구매 버튼을 눌러, 바로 구매 페이지로 이동할 수 있다. 구매하려는 제품이 2개 이상일 경우, 원하는 제품을 차례대로 장바구니에 담은 후 장바구니 페이지에서 
+구매하려는 제품이 하나일 때는 상품 페이지에서 원하는 제품 선택 후 구매 버튼을 눌러, 바로 구매 페이지로 이동할 수 있다. 구매하려는 제품이 2개 이상일 경우, 원하는 제품을 차례대로 장바구니에 담은 후 장바구니 페이지에서 구매할 제품을 선택하여 구매 페이지로 이동할 수 있다.
 ### 1.4 개발환경
 Language: java <br>
 IDE: Android Studio <br><br>
@@ -209,7 +209,7 @@ adapter을 생성하고 구매 리스트에 담겨 있는 객체들을, addItem 
     public Drawable getD(){
         return d;
     }
-}
+
 
 #### -CheckableLinearLayout.java
 Checkable 인터페이스와 LinearLayout 클래스를 상속 받아 재구성하였다.
@@ -269,7 +269,7 @@ Checkable 인터페이스와 LinearLayout 클래스를 상속 받아 재구성�
 
     ArrayList<Product> checkItemList = new ArrayList<>();
 
-일부 뷰를 객체화 하기 위해 LayoutInflater.inflate 메소드를 사용용한다. 원하는 viewGroup에 직접 작성한 productlist_layout.xml을 적용시킨다. 
+일부 뷰를 객체화 하기 위해 LayoutInflater.inflate 메소드를 사용한다. 원하는 viewGroup에 직접 작성한 productlist_layout.xml을 적용시킨다. 
 
     public View getView(int idx, View view, ViewGroup parent){
         Context context = parent.getContext();
@@ -464,7 +464,7 @@ Checkable 인터페이스와 LinearLayout 클래스를 상속 받아 재구성�
     </LinearLayout>
 
 #### -activity_purchase.xml
-최상위 레이아웃으로 TableLayout을 사용하였다. 주소와 연락처를 입력 받는 칸은 GridLayout을 2행 2열을 갖도록 하였다. ListView에 상품을 보여준다. 연락처를 입력 받는 곳에는 숫자만 입력이 가능하도록 설정하고, 주소를 입력 받는 곳에는 기본적으로 한글 자판이 띄도록 설정하였다. Purchase.java와 연결되어 작동한다.
+최상위 레이아웃으로 TableLayout을 사용하였다. 주소와 연락처를 입력 받는 칸은 GridLayout을 2행 2열을 갖도록 하였다. ListView에 상품을 보여준다. 연락처를 입력 받는 곳에는 숫자만 입력이 가능하도록 설정하고, 주소를 입력 받는 곳에는 기본적으로 한글 자판이 뜨도록 설정하였다. Purchase.java와 연결되어 작동한다.
 
     <?xml version="1.0" encoding="utf-8"?>
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
