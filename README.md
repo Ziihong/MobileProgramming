@@ -51,42 +51,17 @@ IDE: Android Studio <br><br>
 |CheckProductList.java|장바구니 페이지에서 상품 나열을 위한 adapter 클래스|
 
 ### 2.2 소스 파일 설명
-#### MainActivity.java
+#### -MainActivity.java
+결제할 리스트와 장바구니에 담을 리스트를 static을 사용하여 생성하였다.
 '''java
-
-public class MainActivity extends AppCompatActivity {
-
-    ListView listView;                                  //상품 목록
-    ConstraintLayout menu;                              //장바구니 또는 구매 버튼 선택하는 메뉴
-    Button shoppingCart, purchase, goShoppingList;      //메뉴의 장바구니 버튼과 구매하기 버튼, 장바구니 이동 버튼
-    Product selectedItem;                               //선택된 제품
 
     //결제할 제품
     static ArrayList<Product> shoppingList = new ArrayList<>();
     //장바구니 제품
     static ArrayList<Product> cartList = new ArrayList<>();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-        //각 위젯을 id값을 이용하여 받아오기
-        listView = findViewById(R.id.listView);
-        menu = findViewById(R.id.menu);
-        shoppingCart = findViewById(R.id.shoppingcartButton);
-        purchase = findViewById(R.id.purchaseButton);
-        goShoppingList = findViewById(R.id.goShoppingList);
-
-
-        //처음 아무 제품을 선택하지 않았을 때, 메뉴 버튼 보이지 않게 설정
-        menu.setVisibility(View.INVISIBLE);
-
-
-        //제품을 구매한 후, 다시 상품 페이지로 이동하였을 때를 고려하여 shoppingList 초기화
-        shoppingList.clear();
-
+ '''
+ addItem함수를 사용하여 항목을 추가한 adapter을, 상품을 보여주는 ListView에 적용하였다. 제품이 클릭되었을 때 해당 제품을 저장하고, 장바구니와 구매 중 선택하라는 메세지가 뜬다.
+'''java
 
         //adapter 생성. ListView와 ArrayList 사이에서 중간 역할
         ProductList adapter = new ProductList();
@@ -117,59 +92,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        //장바구니 버튼 눌렀을 때
-        shoppingCart.setOnClickListener(new View.OnClickListener(){
-
-            public void onClick(View v){
-                //장바구니 목록에 선택한 객체 추가
-                if(!cartList.contains(selectedItem)) cartList.add(selectedItem);
-
-                //Intent 사용하여 ShoppingCart.class로 이동
-                Intent intent = new Intent(getApplicationContext(), ShoppingCart.class);
-                startActivity(intent);
-
-                //메뉴 보이지 않게 설정
-                menu.setVisibility(View.INVISIBLE);
-            }
-        });
-
-
-        //구매 버튼 눌렀을 때
-        purchase.setOnClickListener(new View.OnClickListener(){
-
-            public void onClick(View v){
-                //구매 목록에 선택한 객체 추가
-                shoppingList.add(selectedItem);
-
-                //Intent 사용하여 Purchase.class로 이동
-                Intent intent = new Intent(getApplicationContext(), Purchase.class);
-                startActivity(intent);
-
-                //메뉴 보이지 않게 설정
-                menu.setVisibility(View.INVISIBLE);
-            }
-        });
-
-
-        //제품 선택 없이 장바구니 페이지로 이동할 때
-        goShoppingList.setOnClickListener(new View.OnClickListener(){
-
-            public void onClick(View v){
-                //Intent 사용하여 ShoppingCart.class로 이동
-                Intent intent = new Intent(getApplicationContext(), ShoppingCart.class);
-                startActivity(intent);
-
-                //메뉴 보이지 않게 설정
-                menu.setVisibility(View.INVISIBLE);
-            }
-        });
-
-
-    }
-
-}
 '''
+#### -ShoppingCart.java
 
 ## 3. UI 및 스크린샷
 ### 3.1 UI 설계
