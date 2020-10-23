@@ -464,7 +464,7 @@ Checkable 인터페이스와 LinearLayout 클래스를 상속 받아 재구성�
     </LinearLayout>
 
 #### -activity_purchase.xml
-최상위 레이아웃으로 TableLayout을 사용하였다. 주소와 연락처를 입력 받는 칸은 GridLayout을 2행 2열을 갖도록 하였다. ListView에 상품을 보여준다. Purchase.java와 연결되어 작동한다.
+최상위 레이아웃으로 TableLayout을 사용하였다. 주소와 연락처를 입력 받는 칸은 GridLayout을 2행 2열을 갖도록 하였다. ListView에 상품을 보여준다. 연락처를 입력 받는 곳에는 숫자만 입력이 가능하도록 설정하고, 주소를 입력 받는 곳에는 기본적으로 한글 자판이 띄도록 설정하였다. Purchase.java와 연결되어 작동한다.
 
     <?xml version="1.0" encoding="utf-8"?>
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -533,9 +533,10 @@ Checkable 인터페이스와 LinearLayout 클래스를 상속 받아 재구성�
                 android:layout_column="1"
                 android:gravity="center"
                 android:hint="주소  입력"
-                android:inputType="text"
-                android:isScrollContainer="false"
-                android:keepScreenOn="false"
+                android:inputType="textLongMessage"
+                android:privateImeOptions="defaultInputmode=korean"
+                android:isScrollContainer="true"
+                android:keepScreenOn="true"
                 android:padding="10sp"
                 android:textSize="17sp" />
         </GridLayout>
@@ -660,4 +661,16 @@ Checkable 인터페이스와 LinearLayout 클래스를 상속 받아 재구성�
     </com.example.mobileprogramming.CheckableLinearLayout>
 
 ### 3.2 스크린샷
-
+상품 선택 페이지에서 상품을 선택하여 장바구니 페이지로 이동하였을 때,<br>
+<img src="https://user-images.githubusercontent.com/54922803/97002305-c3c83680-1574-11eb-8092-8c344ee8009f.png" width="30%">
+<img src="https://user-images.githubusercontent.com/54922803/97002615-320cf900-1575-11eb-80f6-a562e96e3f34.png" width="30%">
+<img src="https://user-images.githubusercontent.com/54922803/97002620-3507e980-1575-11eb-829d-ad826a22d0a1.png" width="30%"> <br><br>
+장바구니 페이지에서 구매할 제품을 선택하고 구매 페이지로 이동하였을 때, <br>
+<img src="https://user-images.githubusercontent.com/54922803/97002633-39cc9d80-1575-11eb-8924-2449e10737ea.png" width="30%">
+<img src="https://user-images.githubusercontent.com/54922803/97002640-3afdca80-1575-11eb-810d-332950cbfea2.png" width="30%"> <br><br>
+주문할 때 주소와 연락처를 입력하지 않은 경우와 모든 정보를 입력한 경우, <br>
+<img src="https://user-images.githubusercontent.com/54922803/97002651-3e915180-1575-11eb-9097-9a698040078b.png" width="30%">
+<img src="https://user-images.githubusercontent.com/54922803/97002655-40f3ab80-1575-11eb-97e7-0ba07569aaba.png" width="30%">
+<img src="https://user-images.githubusercontent.com/54922803/97002679-44873280-1575-11eb-8fc0-9d06515c8b96.png" width="30%"> <br><br>
+구매를 완료한 경우, 다시 상품 페이지로 돌아온다. <br>
+<img src="https://user-images.githubusercontent.com/54922803/97002685-46e98c80-1575-11eb-8a37-9ad7c4bbac66.png" width="30%">
