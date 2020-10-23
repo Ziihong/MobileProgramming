@@ -660,3 +660,4 @@ Checkable 인터페이스와 LinearLayout 클래스를 상속 받아 재구성�
     </com.example.mobileprogramming.CheckableLinearLayout>
 
 ### 3.2 스크린샷
+
