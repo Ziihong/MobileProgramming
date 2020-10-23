@@ -94,12 +94,12 @@ IDE: Android Studio <br><br>
 
 이때, 저장한 제품은 장바구니 버튼을 클릭하면 장바구니 리스트에 추가되고 구매하기 버튼을 클릭하면 구매 리스트에 추가된다.
 
-                //장바구니 버튼을 눌렀을 때
-                if(!cartList.contains(selectedItem)) cartList.add(selectedItem);
-                
-                
-                //구매 버튼을 눌렀을 때
-                shoppingList.add(selectedItem);
+          //장바구니 버튼을 눌렀을 때
+          if(!cartList.contains(selectedItem)) cartList.add(selectedItem);
+
+
+          //구매 버튼을 눌렀을 때
+          shoppingList.add(selectedItem);
 
 
 
@@ -170,23 +170,23 @@ adapter을 생성하고 구매 리스트에 담겨 있는 객체들을, addItem 
 
 최종 주문 버튼을 눌렀을 때, 상품 페이지인 MainActivity.class로 이동하도록 한다. 구매한 제품들은 장바구니 리스트에서 삭제하고 구매 리스트는 초기화한다.
 
-                    //구매 완료. Intent 사용하여 MainActivity.class로 이동
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+          //구매 완료. Intent 사용하여 MainActivity.class로 이동
+          Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+          startActivity(intent);
 
-                    //구매한 제품들은 장바구니 목록에서 삭제
-                    for(int i=0; i<MainActivity.shoppingList.size(); i++){
-                        Product p = MainActivity.shoppingList.get(i);
-                        for(int j=0; j<MainActivity.cartList.size(); j++){
-                            if(MainActivity.cartList.get(j).getName().equals(p.getName())){
-                                MainActivity.cartList.remove(MainActivity.cartList.get(j));
-                            }
-                        }
-                    }
+          //구매한 제품들은 장바구니 목록에서 삭제
+          for(int i=0; i<MainActivity.shoppingList.size(); i++){
+              Product p = MainActivity.shoppingList.get(i);
+              for(int j=0; j<MainActivity.cartList.size(); j++){
+                  if(MainActivity.cartList.get(j).getName().equals(p.getName())){
+                      MainActivity.cartList.remove(MainActivity.cartList.get(j));
+                  }
+              }
+          }
 
-                    //구매를 완료하였으므로, 구매 목록 초기화
-                    MainActivity.shoppingList.clear();
-                }
+          //구매를 완료하였으므로, 구매 목록 초기화
+          MainActivity.shoppingList.clear();
+      }
 #### -Product.java
 제품 정보를 담고 있는 클래스이다. get메소드와 set메소들 이용하여 제품의 정보를 관리하였다.
 
@@ -214,27 +214,27 @@ adapter을 생성하고 구매 리스트에 담겨 있는 객체들을, addItem 
 #### -CheckableLinearLayout.java
 Checkable 인터페이스와 LinearLayout 클래스를 상속 받아 재구성하였다.
 
-    public CheckableLinearLayout(Context context, AttributeSet attrs){
-        super(context, attrs);
-    }
-    //checkable 인터페이스 abstract함수 override해야함
+      public CheckableLinearLayout(Context context, AttributeSet attrs){
+          super(context, attrs);
+      }
+      //checkable 인터페이스 abstract함수 override해야함
 
-    public boolean isChecked(){ //현재 checked 상태 확인
-        CheckBox checkBox = findViewById(R.id.checkbox);
-        return checkBox.isChecked();
-    }
+      public boolean isChecked(){ //현재 checked 상태 확인
+          CheckBox checkBox = findViewById(R.id.checkbox);
+          return checkBox.isChecked();
+      }
 
-    public void toggle(){ //현재 checked 상태 변경
-        CheckBox checkBox = findViewById(R.id.checkbox);
-        setChecked(!checkBox.isChecked());
-    }
+      public void toggle(){ //현재 checked 상태 변경
+          CheckBox checkBox = findViewById(R.id.checkbox);
+          setChecked(!checkBox.isChecked());
+      }
 
-    public void setChecked(boolean checked){ //checked 상태를 checked 변수대로 설정
-        CheckBox checkBox = findViewById(R.id.checkbox);
-        if(checkBox.isChecked() != checked){
-            checkBox.setChecked(checked);
-        }
-    }
+      public void setChecked(boolean checked){ //checked 상태를 checked 변수대로 설정
+          CheckBox checkBox = findViewById(R.id.checkbox);
+          if(checkBox.isChecked() != checked){
+              checkBox.setChecked(checked);
+          }
+      }
 #### -ProductList.java
 
 제품을 담을 리스트를 ArrayList클래스를 사용하여 생성한다.
@@ -292,4 +292,371 @@ Checkable 인터페이스와 LinearLayout 클래스를 상속 받아 재구성�
  
 ## 3. UI 및 스크린샷
 ### 3.1 UI 설계
+|파일명|기능|
+|:---:|:---:|
+|activity_main.xml|기본 액티비티. 상품 페이지 레이아웃|
+|activity_shopping_cart.xml|장바구니 페이지 레이아웃|
+|activity_purchase.xml|구매 페이지 레이아웃|
+|product_layout.xml|뷰를 객체화 하기 위해 구성한 레이아웃. 상품 페이지, 구매 페이지에서 사용|
+|productlist_layout.xml|뷰를 객체화 하기 위해 구성한 레이아웃. 장바구니 페이지에서 사용|
+#### -activity_main.xml
+최상위 레이아웃을 Relative Layout을 사용하였다. ListView에 상품을 보여주고, 상품을 선택하면 아래에 장바구니 혹은 구매 버튼을 선택할 수 있다. MainActivity.class와 연결되어 작동한다.
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C0C7ED"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="상품 선택 페이지"
+            android:textIsSelectable="false"
+            android:textSize="23sp" />
+
+        <Button
+            android:id="@+id/goShoppingList"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="7dp"
+            android:background="#CCB8F1"
+            android:text="🛒"
+            android:textSize="20sp"
+            android:layout_marginRight="7dp"
+            android:layout_alignParentRight="true" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/listView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-1dp"
+            android:layout_marginLeft="-1dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="-2dp"
+            android:background="#F6DBE4">
+
+            <Button
+                android:id="@+id/shoppingcartButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#F4BFD1"
+                android:text="장바구니"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/purchaseButton"
+                app:layout_constraintHorizontal_bias="0.488"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/purchaseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="72dp"
+                android:layout_marginRight="72dp"
+                android:background="#F4BFD1"
+                android:text="바로 구매"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+#### -activity_shopping_cart.xml
+최상위 레이아웃으로 LinearLayout을 사용하였다. ListView에 상품을 보여주고, 상품 별로 체크박스를 사용하여 제품을 구매 리스트에 담을 수 있다. ShoppingCart.java와 연결되어 작동한다.
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:orientation="vertical"
+        tools:context=".ShoppingCart">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#C0C7ED">
+
+            <TextView
+                android:id="@+id/주문페이지"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10sp"
+                android:text="장바구니"
+                android:textSize="23sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/homeButton"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:background="#CCB8F1"
+                android:text="🏠"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/주문페이지"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.454" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:choiceMode="multipleChoice" >
+
+        </ListView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:background="#F6DBE4">
+
+            <Button
+                android:id="@+id/purchaseButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#F4BFD1"
+                android:text="구매하기"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+#### -activity_purchase.xml
+최상위 레이아웃으로 TableLayout을 사용하였다. 주소와 연락처를 입력 받는 칸은 GridLayout을 2행 2열을 갖도록 하였다. ListView에 상품을 보여준다. Purchase.java와 연결되어 작동한다.
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:orientation="vertical"
+        tools:context=".Purchase">
+
+        <TextView
+            android:id="@+id/주문페이지"
+            android:layout_width="423dp"
+            android:layout_height="wrap_content"
+            android:background="#C0C7ED"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="주문자 정보 입력"
+            android:textSize="23sp" />
+
+        <GridLayout
+            android:layout_height="103dp"
+            android:columnCount="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:padding="10sp"
+                android:paddingLeft="30sp"
+                android:text="번호: "
+                android:textSize="17sp" />
+
+
+            <EditText
+                android:id="@+id/inputPhone"
+                android:layout_width="351dp"
+                android:layout_height="53dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:digits="0123456789"
+                android:gravity="center"
+                android:hint="' - '  없이  입력"
+                android:inputType="phone"
+                android:padding="10sp"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:padding="10sp"
+                android:paddingLeft="30sp"
+                android:text="주소: "
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/inputAdress"
+                android:layout_width="351dp"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:gravity="center"
+                android:hint="주소  입력"
+                android:inputType="text"
+                android:isScrollContainer="false"
+                android:keepScreenOn="false"
+                android:padding="10sp"
+                android:textSize="17sp" />
+        </GridLayout>
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C0C7ED"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="결제 품목 확인"
+            android:textSize="23sp" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="291dp">
+
+        </ListView>
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00B60000"
+            android:gravity="right"
+            android:padding="10sp"
+            android:textColor="#910000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/orderButton"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:background="#F8B34E"
+            android:text="주문 하기" />
+    </TableLayout>
+    
+#### -product_layout.xml
+뷰를 객체화 하기 위한 레이아웃이다. 상품 페이지와 구매 페이지에 사용된다.
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </LinearLayout>
+    
+#### -productlist_layout.xml
+뷰를 객체화 하기 위한 레이아웃이다. 장바구니 페이지에 사용된다. 앞에 있는, product_layout.xml과 차이점은 체크박스의 유무이다.
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <com.example.mobileprogramming.CheckableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@id/checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+    </com.example.mobileprogramming.CheckableLinearLayout>
+
 ### 3.2 스크린샷
